@@ -35,6 +35,23 @@ app.post('/api/v1/tours', (req, res) => {
   //res.send('done');
 });
 
+app.get('/api/v1/tours/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const tour = tours.find(el => el.id === id);
+  if (!tour) {
+    res.status(404).json({
+      status: 'failure',
+      message: 'Invalid ID'
+    });
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour
+    }
+  });
+});
+
 const port = 3000;
 app.listen(port, () => {
   console.log(`app running on port ${port}`);
