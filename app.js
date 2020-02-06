@@ -52,6 +52,25 @@ app.get('/api/v1/tours/:id', (req, res) => {
   });
 });
 
+// patch
+app.patch('/api/v1/tours/:id', (req, res) => {
+  const id = req.params.id; // from url
+  console.log( JSON.stringify(req.body)); // from json body
+  res.status(200).json({
+    status:'success',
+    message:`Upaded Tour with ID ${id} `
+  })
+});
+
+//delete
+app.delete('/api/v1/tours/:id', (req, res) => {
+  const id = req.params.id; // from url
+  res.status(204).json({
+    status:'success',
+    message:`Deleted Tour with ID ${id} `
+  })
+});
+
 const port = 3000;
 app.listen(port, () => {
   console.log(`app running on port ${port}`);
