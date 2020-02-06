@@ -29,11 +29,14 @@ app.listen(port, () => {
 });
 
 /*
-URL Designing
+URL Designing CRUD
 tours (plural)
 /addNewTour => POST /tours
-/getTour    => GET /tours
-/updateTour => [PUT/PATCH] /tours (put : have to send all resources, patch: need to send resources that needs to get updated)
-/deleteTour => DELETE /tours
+/getTour    => GET /tours/7:id
+/updateTour => [PUT/PATCH] /tours/7 (put : have to send all resources, patch: need to send resources that needs to get updated)
+/deleteTour => DELETE /tours/7
 
+
+2 or more res at same time
+/getToursByUser => GET /users/3/tours
  */
