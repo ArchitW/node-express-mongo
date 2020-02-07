@@ -88,7 +88,7 @@ app.get('/api/v1/tours/:id', getATour);
 app.patch('/api/v1/tours/:id', updateATour);
 app.delete('/api/v1/tours/:id', deleteATour);
 */
-
+/* Tours */
 app
   .route('/api/v1/tours')
   .get(getAllTours)
@@ -106,7 +106,28 @@ app
   .get(getATour)
   .patch(updateATour)
   .delete(deleteATour);
+/* END TOURS */
 
+const  getAllUsers = ((req, res) =>{
+  res.status(500).json({
+    status:'error',
+    message:"Route not yet defined"
+  })
+});
+const createUser = ((req, res) => {});
+const  getUser = ((req, res) => {})
+const  updateUser = ((req, res) => {})
+const  deleteUser = ((req, res) => {})
+/* USERS */
+app.route('/api/v1/users')
+  .get(getAllUsers)
+  .post(createUser)
+
+app.route('/ap1/v1/users/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser)
+/* END USERS */
 
 const port = 3000;
 app.listen(port, () => {
