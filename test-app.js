@@ -23,6 +23,13 @@ var t =(req.query);
   });
 });
 
+app.get('/api/v1/tours/:id',(req, res) => {
+  console.log(req.params);
+})
+
+app.get('/api/v1/tours/:id/optional_param?',(req, res) => {
+  console.log(req.params);
+})
 const port = 3000;
 app.listen(port, () => {
   console.log(`app running on port ${port}`);

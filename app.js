@@ -7,7 +7,8 @@ const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simpl
 const app = express();
 //middleware : a function that can modify incoming request data.
 app.use(express.json());
-app.get('/api/v1/tours', (req, res) => {
+
+const getAllTours = (req, res) => {
 // send back all tours
   res.status(200).json({
     status: 'success',
@@ -16,26 +17,8 @@ app.get('/api/v1/tours', (req, res) => {
       tours
     }
   });
-});
-
-app.post('/api/v1/tours', (req, res) => {
-  //Post Tours
-  //console.log(req.body);
-  const id = (tours[tours.length - 1].id) + 1;
-  const newTour = Object.assign({ id: id }, req.body);
-  tours.push(newTour);
-  fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), err => {
-    res.status(201).json({
-      status: 'success',
-      data: {
-        tour: newTour
-      }
-    });
-  });
-  //res.send('done');
-});
-
-app.get('/api/v1/tours/:id', (req, res) => {
+};
+const getATour = (req, res) => {
   const id = parseInt(req.params.id);
   const tour = tours.find(el => el.id === id);
   if (!tour) {
@@ -50,26 +33,59 @@ app.get('/api/v1/tours/:id', (req, res) => {
       tour
     }
   });
-});
-
-// patch
-app.patch('/api/v1/tours/:id', (req, res) => {
+};
+const postATour = (req, res) => {
+  //Post Tours
+  //console.log(req.body);
+  const id = (tours[tours.length - 1].id) + 1;
+  const newTour = Object.assign({ id: id }, req.body);
+  tours.push(newTour);
+  fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), err => {
+    res.status(201).json({
+      status: 'success',
+      data: {
+        tour: newTour
+      }
+    });
+  });
+  //res.send('done');
+};
+const updateATour = (req, res) => {
   const id = req.params.id; // from url
-  console.log( JSON.stringify(req.body)); // from json body
+  console.log(JSON.stringify(req.body)); // from json body
   res.status(200).json({
-    status:'success',
-    message:`Upaded Tour with ID ${id} `
-  })
-});
-
-//delete
-app.delete('/api/v1/tours/:id', (req, res) => {
+    status: 'success',
+    message: `Upaded Tour with ID ${id} `
+  });
+};
+const deleteATour = (req, res) => {
   const id = req.params.id; // from url
   res.status(204).json({
-    status:'success',
-    message:`Deleted Tour with ID ${id} `
-  })
-});
+    status: 'success',
+    message: `Deleted Tour with ID ${id} `
+  });
+};
+/*
+app.get('/api/v1/tours', getAllTours);
+app.post('/api/v1/tours', postATour);
+app.get('/api/v1/tours/:id', getATour);
+app.patch('/api/v1/tours/:id', updateATour);
+app.delete('/api/v1/tours/:id', deleteATour);
+*/
+
+app
+  .route('/api/v1/tours')
+  .get(getAllTours)
+  .post(postATour);
+
+app
+  .route('/api/v1/tours/:id')
+  .get(getATour)
+  .patch(updateATour)
+  .delete(deleteATour);
+
+
+
 
 const port = 3000;
 app.listen(port, () => {
