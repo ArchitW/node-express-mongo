@@ -1,10 +1,19 @@
 const express = require('express');
 const fs = require('fs');
-
+const morgan = require('morgan');
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8'));
 
 
 const app = express();
+/*
+1 middlewares
+2 rout handlers
+3 route
+4 start server
+ */
+//morgan MW
+app.use(morgan('dev'));
+
 //middleware : a function that can modify incoming request data.
 app.use(express.json());
 
