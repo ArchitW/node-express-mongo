@@ -8,6 +8,13 @@ const app = express();
 //middleware : a function that can modify incoming request data.
 app.use(express.json());
 
+// Middleware , always use next()
+// Order of middleware maters.. be careful.
+app.use((req, res, next) => {
+  console.log('Hello from the middleware');
+  next();
+});
+
 const getAllTours = (req, res) => {
 // send back all tours
   res.status(200).json({
@@ -78,13 +85,18 @@ app
   .get(getAllTours)
   .post(postATour);
 
+// this middleware will add timestamp for get,patch and delete since it is added
+// before them
+app.use((req,res,next) => {
+  req.requestTime = new Date().toISOString();
+  console.log(req.requestTime);
+  next();
+})
 app
   .route('/api/v1/tours/:id')
   .get(getATour)
   .patch(updateATour)
   .delete(deleteATour);
-
-
 
 
 const port = 3000;
