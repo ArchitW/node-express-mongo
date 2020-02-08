@@ -2,7 +2,11 @@ const express = require('express');
 const tourController = require('./../controllers/tourController');
 
 const router = express.Router();
-
+//Param Middleware runs on the tour-route which has ID//
+router.param('id', (req, res,next, val) => {
+ console.log('ID=>' + val);
+ next();
+});
 
 router
   .route('/')
