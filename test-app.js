@@ -101,3 +101,8 @@ middleware = ((req , res, next) => {
 router
   .route('/')
   .post(middleware, tourController.postATour);
+
+
+/* Serving Static Files */
+// serve static files
+app.use(express.static(`${__dirname}public/`));
