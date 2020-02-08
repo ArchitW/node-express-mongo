@@ -43,25 +43,46 @@ tours (plural)
 /updateTour => [PUT/PATCH] /tours/7 (put : have to send all resources, patch: need to send resources that needs to get updated)
 /deleteTour => DELETE /tours/7
 
+*/
 
-2 or more res at same time
-/getToursByUser => GET /users/3/tours
- */
-
-/* basic routing
+/* Basic Routing*/
 const getAllTours = (req, res) => {});
 app.get('/api/v1/tours', getAllTours);
 app.post('/api/v1/tours', postATour);
 app.get('/api/v1/tours/:id', getATour);
 app.patch('/api/v1/tours/:id', updateATour);
 app.delete('/api/v1/tours/:id', deleteATour);
-*/
 
-/*
+/* Routing Refactor */
+//routes.js
+const controller = require('controller');
+const routes = express.Router();
+router.routes('/').get(controller.getMethod)
 
-Param Middleware runs on the route which has ID//
+//controller.js
+export getMethod = ((req, res)=>{ /* do stuff here */});
+// app.js
+app.use('PATH/TO/URL/V1', routes);
+//ex:app.use('/api/v1/tours', tourRouter);
+
+
+/*Param Middleware runs on the route which has ID */
 router.param('id', (req, res,next, val) => {
  console.log('ID=>' + val);
  next();
 });
+
+
+/*
+Calling middleware function before insert.
+checks if name and price is empty
  */
+middleware = ((req , res, next) => {
+  if (!req.body.name || !req.body.price){
+    return res.status(400).json({status:'fail',message:'missing name and price'})
+  }
+  next();
+});
+router
+  .route('/')
+  .post(middleware, tourController.postATour);
