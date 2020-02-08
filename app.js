@@ -1,33 +1,25 @@
 const express = require('express');
-const fs = require('fs');
 const morgan = require('morgan');
 
-
+const userRouter = require('./routes/userRoutes');
+const tourRouter = require('./routes/tourRoutes');
 
 const app = express();
-const userRouter = require('./routes/userRoutes')
-const tourRouter = require('./routes/tourRoutes')
+
 
 //morgan MW
 app.use(morgan('dev'));
 app.use(express.json());
 
 
-/*
-app.get('/api/v1/tours', getAllTours);
-app.post('/api/v1/tours', postATour);
-app.get('/api/v1/tours/:id', getATour);
-app.patch('/api/v1/tours/:id', updateATour);
-app.delete('/api/v1/tours/:id', deleteATour);
-*/
-/* Tours */
-
-
-/* END USERS */
-app.use('/api/v1/tours',tourRouter)
-app.use('/api/v1/users', userRouter)
-
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App running on port ${port}`);
+app.use('/api/v1/tours', tourRouter);
+// this middleware will add timestamp only for users route
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  console.log(req.requestTime);
+  next();
 });
+
+app.use('/api/v1/users', userRouter);
+
+module.exports = app;

@@ -47,3 +47,12 @@ tours (plural)
 2 or more res at same time
 /getToursByUser => GET /users/3/tours
  */
+
+/* basic routing
+const getAllTours = (req, res) => {});
+app.get('/api/v1/tours', getAllTours);
+app.post('/api/v1/tours', postATour);
+app.get('/api/v1/tours/:id', getATour);
+app.patch('/api/v1/tours/:id', updateATour);
+app.delete('/api/v1/tours/:id', deleteATour);
+*/
