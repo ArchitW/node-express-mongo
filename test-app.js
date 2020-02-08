@@ -106,3 +106,7 @@ router
 /* Serving Static Files */
 // serve static files
 app.use(express.static(`${__dirname}public/`));
+
+
+// Linting
+// npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-node eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react --save-dev
