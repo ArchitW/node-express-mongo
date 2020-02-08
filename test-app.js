@@ -46,12 +46,27 @@ tours (plural)
 */
 
 /* Basic Routing*/
+
+const CallBackFunction = ((req, res) => {/* return body */})
+app.[get|post|patch|delete]('URI', CallBackFunction)
+
+
 const getAllTours = (req, res) => {});
 app.get('/api/v1/tours', getAllTours);
 app.post('/api/v1/tours', postATour);
 app.get('/api/v1/tours/:id', getATour);
 app.patch('/api/v1/tours/:id', updateATour);
 app.delete('/api/v1/tours/:id', deleteATour);
+
+/* Routes Separation */
+app
+  .route('/URL/To/End-Point')
+  .get(getAllTours)
+  .post(postATour);
+//with param
+app
+  .route('/URL/To/End-Point/:id')
+  .post(middleware, tourController.postATour);
 
 /* Routing Refactor */
 //routes.js
