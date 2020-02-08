@@ -56,3 +56,12 @@ app.get('/api/v1/tours/:id', getATour);
 app.patch('/api/v1/tours/:id', updateATour);
 app.delete('/api/v1/tours/:id', deleteATour);
 */
+
+/*
+
+Param Middleware runs on the route which has ID//
+router.param('id', (req, res,next, val) => {
+ console.log('ID=>' + val);
+ next();
+});
+ */
