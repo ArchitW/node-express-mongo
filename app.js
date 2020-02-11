@@ -1,6 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
 
+
+
+
 const userRouter = require('./routes/userRoutes');
 const tourRouter = require('./routes/tourRoutes');
 
@@ -23,3 +26,5 @@ app.use((req, res, next) => {
 app.use('/api/v1/users', userRouter);
 
 module.exports = app;
+
+//mongodb+srv://gq-user:Test1234@ds215219.mlab.com:15219/natours
