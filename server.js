@@ -25,7 +25,36 @@ mongooes
 
 //Local
 //mongooes.connect(process.env.DATABASE_LOCAL,{}).then(con =>{
- // console.log("local connected")});
+// console.log("local connected")});
+
+// Blueprint to create documents, Schema : Describes the data.
+
+const tourSchema = new mongooes.Schema({
+  name: {
+    //Schema type options
+    type: String,
+    required: [true, 'A tour must have a name'], // Errors if false
+    unique: true
+  },
+  rating: {
+    type: Number,
+    default: 4.5 // Default value
+  },
+  price: Number
+});
+
+//Create Model
+const Tour = mongooes.model('Tour', tourSchema);
+
+const testTour = new Tour({
+  name: 'A new Tour',
+  rating: 4.7,
+  price: 6000
+});
+testTour.save()
+  .then(doc => console.log(doc))
+  .catch(err => console.log(err));
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
